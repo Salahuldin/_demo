@@ -1,0 +1,15 @@
+<% if user_signed_in? %>
+	<h1>All Projects </h1>
+	<% current_user.projects.each do |project|%>
+		<h2><%= project.name %></h2>
+		<div>
+			<%= truncate(project.description, :length => 35)%>
+		</div>
+		<br>
+		<%= link_to 'See project details', project %>
+		<br>
+		<hr>
+	<% end %>
+<% else %>
+	<h1 style="text-align: center;"><strong>BugZilla</strong> </h1>
+<% end %>

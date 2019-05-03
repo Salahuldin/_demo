@@ -1,0 +1,17 @@
+<br>
+<div class="container	">
+	<div>
+		<li><%= link_to 'Edit Project', edit_project_path(@project) %></li>
+		<li><%= link_to 'Delete Project',project_path(@project), mathod: :delete, data: {confirm: "Are you sure?"} %></li>
+	</div>
+
+	<h1><%= @project.name %></h1>
+	<div>
+		<%= @project.description %>
+	</div><br>
+	<div>
+		<li><%= link_to 'View Bugs',project_bugs_path(@project) %></li>
+		<li><%= link_to 'Create Bug', new_project_bug_path(@project) %></li>
+	</div>
+
+</div>
