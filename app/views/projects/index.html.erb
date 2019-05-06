@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 	<h1>All Projects </h1>
-	<% current_user.projects.each do |project|%>
+	<% @projects.each do |project|%>
 		<h2><%= project.name %></h2>
 		<div>
 			<%= truncate(project.description, :length => 35)%>

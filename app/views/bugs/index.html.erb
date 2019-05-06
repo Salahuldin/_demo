@@ -8,7 +8,8 @@
 		<%= image_tag bug.avatar_url.to_s %>
 		<p><strong>Status: </strong><%= bug.status %></p>
 		<p><strong>Deadline: </strong><%= bug.deadline %></p>
-		<br>
+		<br> 
+		<p><%= current_user.name%></p>
     	<div>
     		<%= link_to 'See bug details', project_bug_path(@project,bug) %>
 	    </div>

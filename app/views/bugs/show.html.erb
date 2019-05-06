@@ -1,14 +1,18 @@
 <div class="container	">
 		<h2><%= @bug.title %></h2>
 		<div>
-			<%= truncate(@bug.description, :length => 35)%>
+			<%= @bug.description %>
 		</div><br>
 		<%= image_tag @bug.avatar_url.to_s %>
 		<p><strong>Status: </strong><%= @bug.status %></p>
+		<p><strong>Created by: </strong><%= @bug.user.name %></p>
 		<p><strong>Deadline: </strong><%= @bug.deadline %></p>
 		<br>
     	<div>
 			<li><%= link_to 'Edit Bug', edit_project_bug_path(@project,@bug) %></li>
+			<% if !current_user.Developer? %>
+				<li><%= link_to 'Delete Bug', project_bugs_path(@project,@bug), mathod: :delete, data: {confirm: "Are you sure?"} %></li>
+			<% end %>
 			<li><%= link_to 'See All Bugs',project_bugs_path(@project,@bug) %></li>
 	    </div>
 		<hr>

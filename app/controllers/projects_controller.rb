@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-	before_action :find_project, only: [:show, :edit, :update]
+	before_action :find_project, only: [:show, :edit, :update,:destroy]
 
   def index
   	@projects = Project.all.order("created_at DESC")
@@ -36,9 +36,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
   	@project.destroy
-  	# redirect_to root_path
+  	redirect_to root_path
   end
 
 

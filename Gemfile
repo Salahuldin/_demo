@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.0'
 gem 'rails', '~> 5.2.0'
+gem "pundit"
 gem 'sqlite3'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
@@ -31,5 +32,4 @@ group :development do
   gem 'rails_layout'
 
 gem 'carrierwave', '~> 1.0'
-
 end
