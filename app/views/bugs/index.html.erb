@@ -3,13 +3,13 @@
 	<% @project.bugs.each do |bug|%>
 		<h2><%= bug.title %></h2>
 		<div>
-			<%= truncate(bug.description, :length => 35)%>
+			<%= bug.description %>
 		</div><br>
-		<%= image_tag bug.avatar_url.to_s %>
+		<%= image_tag bug.avatar_url.to_s %><br>
 		<p><strong>Status: </strong><%= bug.status %></p>
+		<p><strong>Type: </strong><%= bug.bug_type %></p>
 		<p><strong>Deadline: </strong><%= bug.deadline %></p>
 		<br> 
-		<p><%= current_user.name%></p>
     	<div>
     		<%= link_to 'See bug details', project_bug_path(@project,bug) %>
 	    </div>

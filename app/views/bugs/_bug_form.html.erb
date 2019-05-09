@@ -7,12 +7,19 @@
 	<%= f.text_area :description %>
 	<br>
 	<%= f.label :deadline %><br>
-	<%= f.datetime_select(:deadline, :default => { :hour => 23, :minute => 59 }) %>
+	<%= f.date_select :deadline %>
     <br>    
     <br>
     <%= f.label :avatar %><br>
     <%= f.file_field :avatar%>
     <br>
+    <div class="row justify-content-md-center">
+        <div class="field form-group col-md-3">
+            <%= f.label "Type" %><br>
+            <%= f.select :bug_type, options_for_select(["Bug","Feature"]), class: "form-control"
+            %>
+        </div>
+    </div>      
     <div class="row justify-content-md-center">
         <div class="field form-group col-md-3">
             <%= f.label "Status" %><br>

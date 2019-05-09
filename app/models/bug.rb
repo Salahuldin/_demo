@@ -1,6 +1,6 @@
 class Bug < ApplicationRecord
  	enum status:  [:New , :Started, :Completed]
-	enum type: [:Feature, :Bug]
+	enum bug_type: [:Bug, :Feature]
 
 	belongs_to :project
 	belongs_to :user

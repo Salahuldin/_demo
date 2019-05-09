@@ -1,10 +1,10 @@
 class ProjectsController < ApplicationController
+	before_action :find_project, only: [:show, :edit, :update,:destroy, :add_user, :del_user]
 
-	before_action :find_project, only: [:show, :edit, :update,:destroy]
+
 
   def index
-  	@projects = Project.all.order("created_at DESC")
-
+    @projects = Project.all.order("created_at DESC")
   end
 
   def new
@@ -13,7 +13,6 @@ class ProjectsController < ApplicationController
 
   def create
   	@project = current_user.projects.build(project_params)
-
   	if @project.save
   		redirect_to @project
   	else
@@ -22,6 +21,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @nusers = User.all.where.not(id: @project.users.ids)
+
   end
 
   def edit
@@ -40,15 +41,30 @@ class ProjectsController < ApplicationController
   	redirect_to root_path
   end
 
+  def add_user
+    @project.users << User.find(params[:user_id])
+    redirect_to @project
+  end
 
+  def del_user
+    @project.users.delete(User.find(params[:user_id]))
+    redirect_to @project
+  end
   private
+
+  def find_user
+    @user = User.find(params[:user_id])
+  end  
 
   def find_project
   	@project = Project.find(params[:id])
   end
+  # def find_users
+  #   @users = User.all
+  # end
 
   def project_params
-  	params.require(:project).permit(:name,:description)
+  	params.require(:project).permit(:name,:description,:user_id)
   end
 
 end

@@ -1,18 +1,102 @@
-<br>
 <div class="container">
-	<% if current_user.Manager? %>
-		<li><%= link_to 'Edit Project', edit_project_path(@project) %></li>
-		<li><%= link_to 'Delete Project',project_path(@project), mathod: :delete, data: {confirm: "Are you sure?"} %></li>
-	<% end %>
-	<h1><%= @project.name %></h1>
-	<div>
-		<%= @project.description %>
-	</div><br>
-	<div>
-		<li><%= link_to 'View Bugs',project_bugs_path(@project) %></li>
-    	<% if !current_user.Developer? %>
-			<li><%= link_to 'Create Bug', new_project_bug_path(@project) %></li>
-		<% end %>
-	</div>
+	<h1><%= @project.name %> </h1>
+	<table class="table table-bordered">
+	  <thead>
+	    <tr>
+	      <th scope="col">Description</th>
+	      <th scope="col">Operations</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td><%= @project.description %></td>
+	      <td>
+	      		<% if current_user.Manager? %>
+					<ul><%= link_to 'Edit Project', edit_project_path(@project) %></ul><hr>
+					<ul><%= link_to 'Delete', project_path(@project), method: :delete, data: {confirm: "Are you sure?"}  %>
+					</ul>
+					<hr>
+				<%end%>
+				<ul><%= link_to 'View All Bugs',project_bugs_path(@project) %></ul>
+		    	<% if !current_user.Developer? %>
+					<hr><ul><%= link_to 'Create New Bug', new_project_bug_path(@project) %></ul>
+				<%end%>
+	      </td>	    
+	    </tr>
+	   </tbody>
+	</table><br><br>
 
-</div>
+<h3>Developers</h3>
+	<table class="table table-bordered">
+		<thead>
+		    <tr>
+		      <th scope="col">Name</th>
+		      <th scope="col">Role</th>
+		      <th scope="col">Email</th>
+		       <th scope="col">Click to Remove </th>
+
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<% @project.devs.each do |user|%>
+				<tr>
+				    <td><%= user.name %></td>
+				    <td><%= user.role %></td>
+				    <td><%= user.email %></td>
+				    <td><%= link_to 'Remove', del_user_project_path(@project.id, user_id: user.id), method: :post %></td> 
+				</tr>
+			<% end %>
+		   </tbody>
+</table><br><br>
+
+	<h3>QAs</h3>
+	<table class="table table-bordered">
+		<thead>
+		    <tr>
+		      <th scope="col">Name</th>
+		      <th scope="col">Role</th>
+		      <th scope="col">Email</th>
+		       <th scope="col">Click to Remove </th>
+		    </tr>
+		</thead>
+		<tbody>
+		  	<% @project.qas.each do |user|%>
+				<tr>
+				    <td><%= user.name %></td>
+				    <td><%= user.role %></td>
+				    <td><%= user.email %></td>
+				    <td><%= link_to 'Remove', del_user_project_path(@project.id, user_id: user.id), method: :post %></td> 
+				</tr>
+			<% end %>
+		</tbody>
+	</table><br><br>
+
+
+
+
+<% if current_user.Manager? %>
+		<h3>Add Developer and QA to <strong><%= @project.name %> </strong> </h3>
+		<table class="table table-bordered">
+		  <thead>
+		    <tr>
+		      <th scope="col">Name</th>
+		      <th scope="col">Role</th>
+		      <th scope="col">Email</th>
+		      <th scope="col">Click to Add</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<%@nusers.each do |user|%>
+		  		<% if !user.Manager? %>
+				    <tr>
+				      <td><%= user.name %></td>
+				      <td><%= user.role %></td>
+				      <td><%= user.email %></td>
+				      <td><%= link_to 'Add', add_user_project_path(@project.id, user_id: user.id), method: :post %></td> 
+				   </tr>
+				<% end %>
+			<% end %>
+		   </tbody>
+		</table><br><br>
+	</div>
+<% end %>
