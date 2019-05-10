@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   def create
   	@project = current_user.projects.build(project_params)
   	if @project.save
-  		redirect_to @project
+  		redirect_to @project, notice: 'project is created'
   	else
   		render 'new'
   	end
@@ -22,7 +22,6 @@ class ProjectsController < ApplicationController
 
   def show
     @nusers = User.all.where.not(id: @project.users.ids)
-
   end
 
   def edit
@@ -30,7 +29,7 @@ class ProjectsController < ApplicationController
 
   def update
   	if @project.update(project_params)
-  		redirect_to @project
+  		redirect_to @project, notice: 'project is updated'
   	else
   		render 'edit'
   	end
@@ -38,17 +37,17 @@ class ProjectsController < ApplicationController
 
   def destroy
   	@project.destroy
-  	redirect_to root_path
+  	redirect_to root_path, notice: 'project is deleted'
   end
 
   def add_user
     @project.users << User.find(params[:user_id])
-    redirect_to @project
+    redirect_to @project , notice: 'user is added to the project'
   end
 
   def del_user
     @project.users.delete(User.find(params[:user_id]))
-    redirect_to @project
+    redirect_to @project , notice: 'user is removed from the project'
   end
   private
 

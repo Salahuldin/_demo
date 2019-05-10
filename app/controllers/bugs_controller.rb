@@ -19,7 +19,7 @@ class BugsController < ApplicationController
   	@bug = @project.bugs.build(bug_params)
   	@bug.user = current_user
     if @bug.save
-  		redirect_to project_bugs_url
+  		redirect_to project_bugs_url , notice: 'new bug created'
   	else
   		render 'new'
   	end
@@ -34,7 +34,7 @@ class BugsController < ApplicationController
   # Update existing bug
   def update
   if @bug.update(bug_params)
-      redirect_to project_bug_url
+      redirect_to project_bug_url ,notice: 'bug is updated'
     else
       render 'edit'
     end
@@ -47,20 +47,20 @@ class BugsController < ApplicationController
   # Destroy indivisual bug
   def destroy
       @bug.destroy
-      redirect_to project_bugs_url
+      redirect_to project_bugs_url ,notice: 'bug is deleted'
   end
 
   def assign_bug
     @bug.dev_id = current_user.id
     @bug.status = "Started"
     @bug.save!
-    redirect_to project_bug_url
+    redirect_to project_bug_url ,notice: 'bug has been assigne'
   end
 
   def mark_bug
     @bug.status = "Resolved"
     @bug.save!
-    redirect_to project_bug_url  
+    redirect_to project_bug_url  ,notice: 'bug has been resolved'
   end 
 
   private
