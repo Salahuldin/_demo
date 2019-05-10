@@ -23,9 +23,9 @@
     <div class="row justify-content-md-center">
         <div class="field form-group col-md-3">
             <%= f.label "Status" %><br>
-            <%= f.select :status, options_for_select(["New","Started","Completed"]), class: "form-control" 
+            <%= f.select :status, options_for_select(["New","Started","Resolved"]), class: "form-control" 
             %>
         </div>
     </div>
-    <%= f.submit 'Assign Bug', :class => 'button right' %>
+    <%= f.submit :class => 'button right' %>
     <% end %>

@@ -6,11 +6,8 @@ jQuery ->
 	status = $('#bug_status').html()
 	$('#bug_bug_type').change -> 
 		bugType = $('#bug_bug_type :selected').text()
-		if bugType == "Bug"
-			options = ["one","two","three"]
+		if bugType != "Bug"
+			options = $("#bug_status option")
+			options[2].text = "Completed"
 		else
-			options = ["one2","two2","three2"]
-		
-		$('#bug_status').html(options)
-
 

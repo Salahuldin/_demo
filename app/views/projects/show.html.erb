@@ -33,7 +33,9 @@
 		      <th scope="col">Name</th>
 		      <th scope="col">Role</th>
 		      <th scope="col">Email</th>
-		       <th scope="col">Click to Remove </th>
+		      <% if current_user.Manager? %>
+		      <th scope="col">Click to Remove </th>
+		      <% end %>
 
 		    </tr>
 		  </thead>
@@ -43,7 +45,9 @@
 				    <td><%= user.name %></td>
 				    <td><%= user.role %></td>
 				    <td><%= user.email %></td>
-				    <td><%= link_to 'Remove', del_user_project_path(@project.id, user_id: user.id), method: :post %></td> 
+				    <% if current_user.Manager? %>
+				    <td><%= link_to 'Remove', del_user_project_path(@project.id, user_id: user.id), method: :patch %></td> 
+				    <% end %>
 				</tr>
 			<% end %>
 		   </tbody>
@@ -56,7 +60,9 @@
 		      <th scope="col">Name</th>
 		      <th scope="col">Role</th>
 		      <th scope="col">Email</th>
-		       <th scope="col">Click to Remove </th>
+		      <% if current_user.Manager? %>
+		      <th scope="col">Click to Remove </th>
+		      <% end %>
 		    </tr>
 		</thead>
 		<tbody>
@@ -65,7 +71,9 @@
 				    <td><%= user.name %></td>
 				    <td><%= user.role %></td>
 				    <td><%= user.email %></td>
-				    <td><%= link_to 'Remove', del_user_project_path(@project.id, user_id: user.id), method: :post %></td> 
+				    <% if current_user.Manager? %>
+				    <td><%= link_to 'Remove', del_user_project_path(@project.id, user_id: user.id), method: :patch %></td> 
+				    <% end %>
 				</tr>
 			<% end %>
 		</tbody>
@@ -92,7 +100,7 @@
 				      <td><%= user.name %></td>
 				      <td><%= user.role %></td>
 				      <td><%= user.email %></td>
-				      <td><%= link_to 'Add', add_user_project_path(@project.id, user_id: user.id), method: :post %></td> 
+				      <td><%= link_to 'Add', add_user_project_path(@project.id, user_id: user.id), method: :patch %></td> 
 				   </tr>
 				<% end %>
 			<% end %>

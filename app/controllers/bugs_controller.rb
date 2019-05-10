@@ -1,7 +1,7 @@
 class BugsController < ApplicationController
 
 	before_action :find_project, only: [:new, :show,:index,:create,:edit,:update,:destroy]
-  before_action :find_bug, only: [ :show, :edit, :update,:destroy]
+  before_action :find_bug, only: [ :show, :edit, :update,:destroy, :assign_bug, :mark_bug]
 
   # shows all bugs
   def index
@@ -49,6 +49,19 @@ class BugsController < ApplicationController
       @bug.destroy
       redirect_to project_bugs_url
   end
+
+  def assign_bug
+    @bug.dev_id = current_user.id
+    @bug.status = "Started"
+    @bug.save!
+    redirect_to project_bug_url
+  end
+
+  def mark_bug
+    @bug.status = "Resolved"
+    @bug.save!
+    redirect_to project_bug_url  
+  end 
 
   private
 
