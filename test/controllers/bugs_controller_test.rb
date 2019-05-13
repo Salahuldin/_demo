@@ -5,5 +5,4 @@ class BugsControllerTest < ActionDispatch::IntegrationTest
     get bugs_index_url
     assert_response :success
   end
-
 end

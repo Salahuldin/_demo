@@ -7,7 +7,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def new?
-    create?    
+    create?
   end
 
   def create?
@@ -21,11 +21,10 @@ class ProjectPolicy < ApplicationPolicy
   def edit?
     update?
   end
-  
+
   def destroy?
     user.Manager?
   end
-
 
   class Scope < Scope
     def resolve

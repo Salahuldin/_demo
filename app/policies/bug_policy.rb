@@ -1,17 +1,16 @@
 class BugPolicy < ApplicationPolicy
- attr_reader :user, :bug
-
+  attr_reader :user, :bug
   def initialize(user, bug)
     @user = user
     @bug = bug
   end
 
   def new?
-    create?    
+    create?
   end
 
   def create?
-    user.Manager? or user.QA?
+    user.Manager? || user.QA?
   end
 
   def update?
@@ -23,7 +22,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.Manager? or user.QA?
+    user.Manager? || user.QA?
   end
 
   class Scope < Scope
