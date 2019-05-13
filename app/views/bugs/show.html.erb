@@ -21,7 +21,7 @@
 				<%= button_to 'Assign bug to himself',assign_bug_project_bug_path(@project ,@bug), method: :patch %>
 			<% end %>
 
-			<% if current_user.Developer? && @bug.status != "Resolved" %>
+			<% if current_user.Developer? && @bug.status != "Resolved" && @bug.bug_assign_to == current_user.name %>
 				<%= button_to 'Resolve Bug',mark_bug_project_bug_path(@project ,@bug), method: :patch%>
 			<% end %>
 	    </div>
