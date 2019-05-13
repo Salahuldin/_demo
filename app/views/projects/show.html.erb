@@ -26,34 +26,34 @@
 	   </tbody>
 	</table><br><br>
 
-<h3>Developers</h3>
-	<table class="table table-bordered">
-		<thead>
-		    <tr>
-		      <th scope="col">Name</th>
-		      <th scope="col">Role</th>
-		      <th scope="col">Email</th>
-		      <% if current_user.Manager? %>
-		      <th scope="col">Click to Remove </th>
-		      <% end %>
+  <h3>Developers</h3>
+  	<table class="table table-bordered">
+  		<thead>
+  		    <tr>
+  		      <th scope="col">Name</th>
+  		      <th scope="col">Role</th>
+  		      <th scope="col">Email</th>
+  		      <% if current_user.Manager? %>
+  		      <th scope="col">Click to Remove </th>
+  		      <% end %>
 
-		    </tr>
-		  </thead>
-		  <tbody>
-		  	<% @project.devs.each do |user|%>
-				<tr>
-				    <td><%= user.name %></td>
-				    <td><%= user.role %></td>
-				    <td><%= user.email %></td>
-				    <% if current_user.Manager? %>
-				    <td><%= link_to 'Remove', del_user_project_path(@project.id, user_id: user.id), method: :patch %></td> 
-				    <% end %>
-				</tr>
-			<% end %>
-		   </tbody>
-</table><br><br>
+  		    </tr>
+  		  </thead>
+  		  <tbody>
+  		  	<% @project.devs.each do |user|%>
+  				<tr>
+  				    <td><%= user.name %></td>
+  				    <td><%= user.role %></td>
+  				    <td><%= user.email %></td>
+  				    <% if current_user.Manager? %>
+  				    <td><%= link_to 'Remove', del_user_project_path(@project.id, user_id: user.id), method: :patch %></td> 
+  				    <% end %>
+  				</tr>
+  			<% end %>
+  		   </tbody>
+  </table><br><br>
 
-	<h3>QAs</h3>
+  <h3>QAs</h3>
 	<table class="table table-bordered">
 		<thead>
 		    <tr>
@@ -79,32 +79,29 @@
 		</tbody>
 	</table><br><br>
 
-
-
-
-<% if current_user.Manager? %>
-		<h3>Add Developer and QA to <strong><%= @project.name %> </strong> </h3>
-		<table class="table table-bordered">
-		  <thead>
-		    <tr>
-		      <th scope="col">Name</th>
-		      <th scope="col">Role</th>
-		      <th scope="col">Email</th>
-		      <th scope="col">Click to Add</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		  	<%@nusers.each do |user|%>
-		  		<% if !user.Manager? %>
-				    <tr>
-				      <td><%= user.name %></td>
-				      <td><%= user.role %></td>
-				      <td><%= user.email %></td>
-				      <td><%= link_to 'Add', add_user_project_path(@project.id, user_id: user.id), method: :patch %></td> 
-				   </tr>
-				<% end %>
-			<% end %>
-		   </tbody>
-		</table><br><br>
-	</div>
-<% end %>
+  <% if current_user.Manager? %>
+  		<h3>Add Developer and QA to <strong><%= @project.name %> </strong> </h3>
+  		<table class="table table-bordered">
+  		  <thead>
+  		    <tr>
+  		      <th scope="col">Name</th>
+  		      <th scope="col">Role</th>
+  		      <th scope="col">Email</th>
+  		      <th scope="col">Click to Add</th>
+  		    </tr>
+  		  </thead>
+  		  <tbody>
+  		  	<%@nusers.each do |user|%>
+  		  		<% if !user.Manager? %>
+  				    <tr>
+  				      <td><%= user.name %></td>
+  				      <td><%= user.role %></td>
+  				      <td><%= user.email %></td>
+  				      <td><%= link_to 'Add', add_user_project_path(@project.id, user_id: user.id), method: :patch %></td> 
+  				   </tr>
+  				<% end %>
+  			<% end %>
+  		   </tbody>
+  		</table><br><br>
+  <% end %>
+</div>

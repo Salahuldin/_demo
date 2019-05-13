@@ -8,11 +8,9 @@
 		<%= image_tag bug.avatar_url.to_s %><br>
 		<p><strong>Status: </strong><%= bug.status %></p>
 		<p><strong>Type: </strong><%= bug.bug_type %></p>
-		<p><strong>Deadline: </strong><%= bug.deadline %></p>
-		<br> 
-    	<div>
-    		<%= link_to 'See bug details', project_bug_path(@project,bug) %>
-	    </div>
-		<hr>
+		<p><strong>Deadline: </strong><%= bug.deadline %></p><br> 
+    <div>
+    	<%= link_to 'See bug details', project_bug_path(@project,bug) %>
+	  </div><hr>
 	<% end %>
 </div>
