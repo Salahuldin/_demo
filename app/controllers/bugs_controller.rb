@@ -5,20 +5,22 @@ class BugsController < ApplicationController
 
   # shows all bugs
   def index
-	  @bugs = @project.bugs.all
+	  @bugs = @project.bugs
   end
 
   # New bug
   def new
   	@bug = @project.bugs.build
+    authorize @bug
   end
 
 
   # Create new bug
   def create
-  	@bug = @project.bugs.build(bug_params)
-  	@bug.user = current_user
-    if @bug.save
+  	bug = @project.bugs.build(bug_params)
+    authorize bug
+  	bug.user = current_user
+    if bug.save
   		redirect_to project_bugs_url , notice: 'new bug created'
   	else
   		render 'new'
@@ -28,7 +30,6 @@ class BugsController < ApplicationController
 
   # Edit bug
   def edit
-
   end
 
   # Update existing bug

@@ -1,10 +1,9 @@
 class ApplicationPolicy
-  class Scope
-      attr_reader :user, :project
+  attr_reader :user, :record
 
-  def initialize(user, project)
+  def initialize(user, record)
     @user = user
-    @project = project
+    @record = record
   end
 
   def index?
@@ -32,16 +31,19 @@ class ApplicationPolicy
   end
 
   def destroy?
-        user_is_owner_of_project? 
+    false
   end
 
+  class Scope
+    attr_reader :user, :scope
 
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
 
-
- private
-
-  def user_is_owner_of_project?
-    @user == @project.user
-  end
+    def resolve
+      scope.all
+    end
   end
 end

@@ -1,9 +1,9 @@
-class ProjectPolicy < ApplicationPolicy
-  attr_reader :user, :project
+class BugPolicy < ApplicationPolicy
+ attr_reader :user, :bug
 
-  def initialize(user, project)
+  def initialize(user, bug)
     @user = user
-    @project = project
+    @bug = bug
   end
 
   def new?
@@ -11,21 +11,20 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def create?
-    user.Manager?
+    user.Manager? or user.QA?
   end
 
   def update?
-    user.Manager?
+    true
   end
 
   def edit?
     update?
   end
-  
-  def destroy?
-    user.Manager?
-  end
 
+  def destroy?
+    user.Manager? or user.QA?
+  end
 
   class Scope < Scope
     def resolve
