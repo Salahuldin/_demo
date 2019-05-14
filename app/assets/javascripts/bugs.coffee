@@ -8,6 +8,6 @@ jQuery ->
 		bugType = $('#bug_bug_type :selected').text()
 		if bugType != "Bug"
 			options = $("#bug_status option")
-			options[2].text = "Completed"
+			options[2].text = "completed"
 		else
 

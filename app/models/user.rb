@@ -1,21 +1,21 @@
 class User < ApplicationRecord
-  enum role: [:QA, :Developer, :Manager]
+  enum role: %i[qa developer manager]
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :user_projects, :dependent => :delete_all
+  has_many :user_projects, dependent: :delete_all
   has_many :projects, through: :user_projects
-  has_many :bugs
+  has_many :bugs, dependent: :delete_all
 
-  def Manager?
-    self.role == 'Manager'
+  def manager?
+    role == 'manager'
   end
 
-  def QA?
-    self.role == 'QA'
+  def qa?
+    role == 'qa'
   end
 
-  def Developer?
-    self.role == 'Developer'
+  def developer?
+    role == 'developer'
   end
 end

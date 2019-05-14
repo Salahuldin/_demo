@@ -1,16 +1,16 @@
 <div class="container	">
-	<h1>All Bugs </h1>
-	<% @project.bugs.each do |bug|%>
-		<h2><%= bug.title %></h2>
-		<div>
-			<%= bug.description %>
-		</div><br>
-		<%= image_tag bug.avatar_url.to_s %><br>
-		<p><strong>Status: </strong><%= bug.status %></p>
-		<p><strong>Type: </strong><%= bug.bug_type %></p>
-		<p><strong>Deadline: </strong><%= bug.deadline %></p><br> 
+  <h1>All Bugs </h1>
+  <% @project.bugs.each do |bug|%>
+    <h2><%= bug.title %></h2>
     <div>
-    	<%= link_to 'See bug details', project_bug_path(@project,bug) %>
-	  </div><hr>
-	<% end %>
+      <%= bug.description %>
+    </div><br>
+    <%= image_tag bug.avatar_url.to_s %><br>
+    <p><strong>Status: </strong><%= bug.status %></p>
+    <p><strong>Type: </strong><%= bug.bug_type %></p>
+    <p><strong>Deadline: </strong><%= bug.deadline %></p><br> 
+    <div>
+      <%= link_to 'See bug details', project_bug_path(@project,bug) %>
+    </div><hr>
+  <% end %>
 </div>

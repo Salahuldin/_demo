@@ -1,28 +1,28 @@
 <div class="container	">
-	<h2><%= @bug.title %></h2>
-	<div>
-		<%= @bug.description %>
-	</div><br>
-	<%= image_tag @bug.avatar_url.to_s %>
-	<p><strong>Status: </strong><%= @bug.status %></p>
-	<p><strong>Created by: </strong><%= @bug.user.name  %></p>
-	<p><strong>Role: </strong><%= @bug.user.role %></p>
-	<p><strong>Deadline: </strong><%= @bug.deadline %></p>
-	<p><strong>Assign To: </strong><%= @bug.bug_assign_to %></p><br>
-	<div>
-  	<li><%= link_to 'See All Bugs',project_bugs_path(@project,@bug) %></li>
-  	<li><%= link_to 'Edit Bug', edit_project_bug_path(@project,@bug) %></li>
-  	<% if !current_user.Developer? %>
-  		<li><%= link_to 'Delete Bug', project_bug_path(@project,@bug), method: :delete, data: {confirm: "Are you sure?"} %></li>
-  	<% end %>
+  <h2><%= @bug.title %></h2>
+  <div>
+    <%= @bug.description %>
+  </div><br>
+  <%= image_tag @bug.avatar_url.to_s %>
+  <p><strong>Status: </strong><%= @bug.status %></p>
+  <p><strong>Created by: </strong><%= @bug.user.name  %></p>
+  <p><strong>Role: </strong><%= @bug.user.role %></p>
+  <p><strong>Deadline: </strong><%= @bug.deadline %></p>
+  <p><strong>Assign To: </strong><%= @bug.bug_assign_to %></p><br>
+  <div>
+    <li><%= link_to 'See All Bugs',project_bugs_path(@project,@bug) %></li>
+    <li><%= link_to 'Edit Bug', edit_project_bug_path(@project,@bug) %></li>
+    <% if !current_user.developer? %>
+      <li><%= link_to 'Delete Bug', project_bug_path(@project,@bug), method: :delete, data: {confirm: "Are you sure?"} %></li>
+    <% end %>
 
-  	<% if current_user.Developer? && !@bug.bug_assign_to %>
-  		<%= button_to 'Assign bug to himself',assign_bug_project_bug_path(@project ,@bug), method: :patch %>
-  	<% end %>
+    <% if current_user.developer? && !@bug.bug_assign_to %>
+    <%= button_to 'Assign bug to himself',assign_bug_project_bug_path(@project ,@bug), method: :patch %>
+    <% end %>
 
-  	<% if current_user.Developer? && @bug.status != "Resolved" && @bug.bug_assign_to == current_user.name %>
-  		<%= button_to 'Resolve Bug',mark_bug_project_bug_path(@project ,@bug), method: :patch%>
-  	<% end %>
+    <% if current_user.developer? && @bug.status != "resolved" && @bug.bug_assign_to == current_user.name %>
+      <%= button_to 'Resolve Bug',mark_bug_project_bug_path(@project ,@bug), method: :patch%>
+    <% end %>
   </div>
-	<hr>
+  <hr>
 </div>

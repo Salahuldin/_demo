@@ -1,6 +1,6 @@
 class Bug < ApplicationRecord
-  enum status: [:New, :Started, :Resolved]
-  enum bug_type: [:Bug, :Feature]
+  enum status: %i[new_bug started resolved]
+  enum bug_type: %i[bug feature]
 
   belongs_to :project
   belongs_to :user
@@ -10,6 +10,6 @@ class Bug < ApplicationRecord
   validates :status, presence: true
 
   def bug_assign_to
-    User.where(id: self.dev_id).pluck(:name).first
+    User.where(id: dev_id).pluck(:name).first
   end
 end

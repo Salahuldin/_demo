@@ -1,40 +1,35 @@
 <% if user_signed_in? %>
-	<div class="container">
-		<h1>All Projects </h1>
-		<table class="table table-bordered">
-		  <thead>
-		    <tr>
-		      <th scope="col">Project Title</th>
-		      <th scope="col">Description</th>
-		       <th scope="col">For more Details</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		  	<% if !current_user.Developer? %>
-				<% @projects.each do |project|%>
-			    <tr>
-			      <td scope="row"><%= project.name %></td>
-			      <td><%= project.description %></td>
-			      <td>
-					<%= link_to 'See more', project %>
-			      </td>
-			    </tr>
-				<% end %>
-			<% else %>
-				<% current_user.projects.each do |project|%>
-			    <tr>
-			      <td scope="row"><%= project.name %></td>
-			      <td><%= project.description %></td>
-			      <td>
-					<%= link_to 'See more', project %>
-			      	
-			      </td>
-			    </tr>
-				<% end %>
-			<% end %>
-		   </tbody>
-		</table>
-	</div>
+  <div class="container">
+    <h1>All Projects </h1>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Project Title</th>
+          <th scope="col">Description</th>
+           <th scope="col">For more Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if !current_user.developer? %>
+          <% @projects.each do |project|%>
+            <tr>
+              <td scope="row"><%= project.name %></td>
+              <td><%= project.description %></td>
+              <td><%= link_to 'See more', project %></td>
+            </tr>
+          <% end %>
+          <% else %>
+          <% current_user.projects.each do |project|%>
+            <tr>
+              <td scope="row"><%= project.name %></td>
+              <td><%= project.description %></td>
+              <td><%= link_to 'See more', project %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
-	<h1 style="text-align: center;"><strong>BugZilla</strong> </h1>
+  <h1 style="text-align: center;"><strong>BugZilla</strong> </h1>
 <% end %>

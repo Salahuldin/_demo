@@ -11,11 +11,11 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def create?
-    user.Manager?
+    user.manager?
   end
 
   def update?
-    user.Manager?
+    user.manager?
   end
 
   def edit?
@@ -23,7 +23,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.Manager?
+    user.manager?
   end
 
   class Scope < Scope
