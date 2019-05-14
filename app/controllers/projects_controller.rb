@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to @project, notice: 'project is created'
     else
+      flash[:error] = 'project name should be unique and non-empty'
       render 'new'
     end
   end
@@ -33,6 +34,7 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       redirect_to @project, notice: 'project is updated'
     else
+      flash[:error] = 'project name field should not be empty'
       render 'edit'
     end
   end

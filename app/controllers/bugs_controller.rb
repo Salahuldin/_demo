@@ -18,6 +18,7 @@ class BugsController < ApplicationController
     if bug.save
       redirect_to project_bugs_url, notice: 'new bug created'
     else
+      flash[:error] = 'bug title should be unique and non-empty'
       render 'new'
     end
   end
@@ -28,6 +29,7 @@ class BugsController < ApplicationController
     if @bug.update(bug_params)
       redirect_to project_bug_url, notice: 'bug is updated'
     else
+      flash[:error] = 'bug title field should not be empty'
       render 'edit'
     end
   end
