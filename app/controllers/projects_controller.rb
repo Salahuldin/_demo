@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
 
   def show
     @nusers = User.all.where.not(id: @project.users.ids)
+    authorize @project
   end
 
   def edit

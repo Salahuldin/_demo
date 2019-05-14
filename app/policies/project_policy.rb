@@ -10,6 +10,10 @@ class ProjectPolicy < ApplicationPolicy
     create?
   end
 
+  def show?
+    user.manager? ||  user.qa? || project.users.ids.include?(user.id)
+  end
+
   def create?
     user.manager?
   end

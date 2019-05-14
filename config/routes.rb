@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   devise_scope :user do
-    root to: 'devise/sessions#new'
+    # root to: 'devise/sessions#new'
+    root to: 'projects#index'
   end
   authenticated :user do
     resources :projects do
@@ -16,6 +17,5 @@ Rails.application.routes.draw do
         end
       end
     end
-    root to: 'projects#index'
   end
 end
