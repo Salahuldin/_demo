@@ -3,6 +3,7 @@ class Bug < ApplicationRecord
   enum bug_type: %i[bug feature]
 
   belongs_to :project
+  belongs_to :developer, class_name: 'User', foreign_key: 'dev_id'
   belongs_to :user
   mount_uploader :avatar, AvatarUploader
 
@@ -10,6 +11,6 @@ class Bug < ApplicationRecord
   validates :status, presence: true
 
   def bug_assign_to
-    User.where(id: dev_id).pluck(:name).first
+    self.developer
   end
 end

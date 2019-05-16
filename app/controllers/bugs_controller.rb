@@ -1,61 +1,54 @@
 class BugsController < ApplicationController
   before_action :find_project, only: %i[new show index create edit update destroy]
   before_action :find_bug, only: %i[show edit update destroy assign_bug mark_bug]
+  attr_accessor :project, :bug
 
   def index
-    authorize @project, :show?
-    authorize Bug
-    @bugs = @project.bugs
+    authorize project, :show?
+    @bugs = project.bugs
   end
 
   def new
-    @bug = @project.bugs.build
+    @bug = project.bugs.build
     authorize @bug
   end
 
   def create
-    bug = @project.bugs.build(bug_params)
-    authorize bug
+    bug = project.bugs.build(bug_params)
     bug.user = current_user
     if bug.save
       redirect_to project_bugs_url, notice: 'new bug created'
     else
-      flash[:error] = 'bug title should be unique and non-empty'
-      render 'new'
+      redirect_to new_project_bug_url, flash: { error: 'bug title should be unique and non-empty' }
     end
   end
 
   def edit; end
 
   def update
-    if @bug.update(bug_params)
+    if bug.update(bug_params)
       redirect_to project_bug_url, notice: 'bug is updated'
     else
-      flash[:error] = 'bug title field should not be empty'
-      render 'edit'
+      redirect_to edit_project_bug_url, flash: { error: 'bug title field should not be empty' }
     end
   end
 
   def show
-    authorize @project, :show?
-    authorize @bug
+    authorize project, :show?
   end
 
   def destroy
-    @bug.destroy
+    bug.destroy
     redirect_to project_bugs_url, notice: 'bug is deleted'
   end
 
   def assign_bug
-    @bug.dev_id = current_user.id
-    @bug.status = 'started'
-    @bug.save!
+    bug.update(developer: current_user, status: 'started')
     redirect_to project_bug_url, notice: 'bug has been assigne'
   end
 
   def mark_bug
-    @bug.status = 'resolved'
-    @bug.save!
+    bug.resolved!
     redirect_to project_bug_url, notice: 'bug has been resolved'
   end
 

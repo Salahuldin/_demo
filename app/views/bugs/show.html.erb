@@ -8,7 +8,7 @@
   <p><strong>Created by: </strong><%= @bug.user.name  %></p>
   <p><strong>Role: </strong><%= @bug.user.role %></p>
   <p><strong>Deadline: </strong><%= @bug.deadline %></p>
-  <p><strong>Assign To: </strong><%= @bug.bug_assign_to %></p><br>
+  <p><strong>Assign To: </strong><%= @bug.bug_assign_to.name %></p><br>
   <div>
     <li><%= link_to 'See All Bugs',project_bugs_path(@project,@bug) %></li>
     <li><%= link_to 'Edit Bug', edit_project_bug_path(@project,@bug) %></li>
@@ -16,11 +16,11 @@
       <li><%= link_to 'Delete Bug', project_bug_path(@project,@bug), method: :delete, data: {confirm: "Are you sure?"} %></li>
     <% end %>
 
-    <% if current_user.developer? && !@bug.bug_assign_to %>
+    <% if current_user.developer? && !@bug.bug_assign_to.name %>
     <%= button_to 'Assign bug to himself',assign_bug_project_bug_path(@project ,@bug), method: :patch %>
     <% end %>
 
-    <% if current_user.developer? && @bug.status != "resolved" && @bug.bug_assign_to == current_user.name %>
+    <% if current_user.developer? && @bug.status != "resolved" && @bug.bug_assign_to.name == current_user.name %>
       <%= button_to 'Resolve Bug',mark_bug_project_bug_path(@project ,@bug), method: :patch%>
     <% end %>
   </div>

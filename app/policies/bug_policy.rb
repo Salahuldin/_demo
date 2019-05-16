@@ -10,7 +10,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    !user.developer? || bug.project.users.ids.include?(user.id)
   end
 
   def show?
