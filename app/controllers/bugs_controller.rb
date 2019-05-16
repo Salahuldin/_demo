@@ -3,6 +3,8 @@ class BugsController < ApplicationController
   before_action :find_bug, only: %i[show edit update destroy assign_bug mark_bug]
 
   def index
+    authorize @project, :show?
+    authorize Bug
     @bugs = @project.bugs
   end
 
@@ -34,7 +36,10 @@ class BugsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    authorize @project, :show?
+    authorize @bug
+  end
 
   def destroy
     @bug.destroy

@@ -9,6 +9,14 @@ class BugPolicy < ApplicationPolicy
     create?
   end
 
+  def index?
+    true
+  end
+
+  def show?
+    true
+  end
+
   def create?
     !user.developer?
   end
