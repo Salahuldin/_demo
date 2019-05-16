@@ -11,7 +11,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    user.manager? ||  user.qa? || project.users.ids.include?(user.id)
+    !user.developer? || project.users.ids.include?(user.id)
   end
 
   def create?

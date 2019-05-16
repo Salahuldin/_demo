@@ -10,7 +10,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def create?
-    user.manager? || user.qa?
+    !user.developer?
   end
 
   def update?
@@ -22,7 +22,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.manager? || user.qa?
+    !user.developer?
   end
 
   class Scope < Scope
