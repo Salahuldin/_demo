@@ -15,7 +15,7 @@ class BugsController < ApplicationController
   def create
     bug = @project.bugs.build(bug_params)
     bug.user_id = current_user.id
-    if bug.save!
+    if bug.save
       redirect_to project_bugs_url, notice: 'new bug created'
     else
       redirect_to new_project_bug_url, flash: { error: 'bug title should be unique and non-empty' }
