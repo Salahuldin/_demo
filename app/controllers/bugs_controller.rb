@@ -1,22 +1,21 @@
 class BugsController < ApplicationController
   before_action :find_project, only: %i[new show index create edit update destroy]
   before_action :find_bug, only: %i[show edit update destroy assign_bug mark_bug]
-  attr_accessor :project, :bug
 
   def index
-    authorize project, :show?
-    @bugs = project.bugs
+    authorize @project, :show?
+    @bugs = @project.bugs
   end
 
   def new
-    @bug = project.bugs.build
+    @bug = @project.bugs.build
     authorize @bug
   end
 
   def create
-    bug = project.bugs.build(bug_params)
-    bug.user = current_user
-    if bug.save
+    bug = @project.bugs.build(bug_params)
+    bug.user_id = current_user.id
+    if bug.save!
       redirect_to project_bugs_url, notice: 'new bug created'
     else
       redirect_to new_project_bug_url, flash: { error: 'bug title should be unique and non-empty' }
@@ -26,7 +25,7 @@ class BugsController < ApplicationController
   def edit; end
 
   def update
-    if bug.update(bug_params)
+    if @bug.update(bug_params)
       redirect_to project_bug_url, notice: 'bug is updated'
     else
       redirect_to edit_project_bug_url, flash: { error: 'bug title field should not be empty' }
@@ -34,21 +33,21 @@ class BugsController < ApplicationController
   end
 
   def show
-    authorize project, :show?
+    authorize @project, :show?
   end
 
   def destroy
-    bug.destroy
+    @bug.destroy
     redirect_to project_bugs_url, notice: 'bug is deleted'
   end
 
   def assign_bug
-    bug.update(developer: current_user, status: 'started')
+    @bug.update(developer: current_user, status: 'started')
     redirect_to project_bug_url, notice: 'bug has been assigne'
   end
 
   def mark_bug
-    bug.resolved!
+    @bug.resolved!
     redirect_to project_bug_url, notice: 'bug has been resolved'
   end
 
@@ -63,6 +62,6 @@ class BugsController < ApplicationController
   end
 
   def bug_params
-    params.require(:bug).permit(:title, :description, :deadline, :screenshot, :status, :bug_type, :avatar, :creator)
+    params.require(:bug).permit(:title, :description, :deadline, :status, :bug_type, :avatar)
   end
 end

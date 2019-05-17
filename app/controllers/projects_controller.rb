@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       redirect_to @project, notice: 'project is updated'
     else
-      redirect_to edit_project_url , flash: { error: 'project name field should not be empty' }
+      redirect_to edit_project_url, flash: { error: 'project name field should not be empty' }
     end
   end
 
