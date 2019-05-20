@@ -12,7 +12,6 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rubocop', '~> 0.68.1', require: true
-  gem 'sqlite3'
 end
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -22,6 +21,7 @@ group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'chromedriver-helper'
   gem 'selenium-webdriver'
+  gem 'sqlite3', '1.3.13'
 end
 gem 'bootstrap-sass'
 gem 'carrierwave', '~> 1.0'
