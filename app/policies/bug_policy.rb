@@ -14,7 +14,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    !user.developer? || bug.project.users.ids.include?(user.id)
   end
 
   def create?

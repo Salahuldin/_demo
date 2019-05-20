@@ -30,6 +30,13 @@ class ProjectPolicy < ApplicationPolicy
     user.manager?
   end
 
+  def add_user?
+    update?
+  end
+
+  def del_user?
+    update?
+  end
   class Scope < Scope
     def resolve
       scope.all

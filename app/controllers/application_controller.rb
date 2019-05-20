@@ -9,8 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    flash[:alert] = 'You are not authorized to access this page.'
-    redirect_to root_path
+    redirect_to projects_path, flash: {error: 'You are not authorized to access this page.'}
   end
 
   protected

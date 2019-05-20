@@ -1,15 +1,18 @@
 class BugsController < ApplicationController
-  before_action :find_project, only: %i[new show index create edit update destroy]
-  before_action :find_bug, only: %i[show edit update destroy assign_bug mark_bug]
+  before_action :find_project, except: %i[mark_bug assign_bug]
+  before_action :find_bug, except: %i[index new create]
+  before_action :authorize_bug_resource, except: %i[new index]
+  before_action :authorize_project_resource, only: %i[show index]
 
   def index
-    authorize @project, :show?
     @bugs = @project.bugs
   end
 
+  def show; end
+
   def new
+    authorize Bug
     @bug = @project.bugs.build
-    authorize @bug
   end
 
   def create
@@ -32,10 +35,6 @@ class BugsController < ApplicationController
     end
   end
 
-  def show
-    authorize @project, :show?
-  end
-
   def destroy
     @bug.destroy
     redirect_to project_bugs_url, notice: 'bug is deleted'
@@ -52,6 +51,14 @@ class BugsController < ApplicationController
   end
 
   private
+
+  def authorize_project_resource
+    authorize @project, :show?
+  end
+
+  def authorize_bug_resource
+    authorize @bug
+  end
 
   def find_bug
     @bug = Bug.find(params[:id])

@@ -1,18 +1,18 @@
 class ProjectsController < ApplicationController
-  before_action :find_project, only: %i[show edit update destroy add_user del_user]
+  before_action :find_project, except: %i[index new create]
+  before_action :authorize_project_resource, except: %i[index new]
 
   def index
     @projects = Project.all.order('created_at DESC')
   end
 
   def new
+    authorize Project
     @project = current_user.projects.build
-    authorize @project
   end
 
   def create
     @project = current_user.projects.build(project_params)
-    authorize @project
     if @project.save
       redirect_to @project, notice: 'project is created'
     else
@@ -22,15 +22,11 @@ class ProjectsController < ApplicationController
 
   def show
     @nusers = User.all.where.not(id: @project.users.ids)
-    authorize @project
   end
 
-  def edit
-    authorize @project
-  end
+  def edit; end
 
   def update
-    authorize @project
     if @project.update(project_params)
       redirect_to @project, notice: 'project is updated'
     else
@@ -39,7 +35,6 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    authorize @project
     @project.destroy
     redirect_to root_path, notice: 'project is deleted'
   end
@@ -55,6 +50,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def authorize_project_resource
+    authorize @project
+  end
 
   def find_user
     @user = User.find(params[:user_id])
