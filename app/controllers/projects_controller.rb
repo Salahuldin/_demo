@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @nusers = User.all.where.not(id: @project.users.ids)
+    @excluded_users = User.all.where.not(id: @project.users.ids)
   end
 
   def edit; end
@@ -40,12 +40,12 @@ class ProjectsController < ApplicationController
   end
 
   def add_user
-    @project.users << User.find(params[:user_id])
+    @project.users << find_user
     redirect_to @project, notice: 'user is added to the project'
   end
 
   def del_user
-    @project.users.delete(User.find(params[:user_id]))
+    @project.users.delete(find_user)
     redirect_to @project, notice: 'user is removed from the project'
   end
 
