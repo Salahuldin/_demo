@@ -8,11 +8,11 @@ gem 'puma', '~> 3.11'
 gem 'pundit'
 gem 'rails', '~> 5.2.0'
 gem 'sass-rails', '~> 5.0'
-gem 'sqlite3', '1.3.13'
 gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rubocop', '~> 0.68.1', require: true
+  gem 'pg'
 end
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
