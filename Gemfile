@@ -8,6 +8,7 @@ gem 'puma', '~> 3.11'
 gem 'pundit'
 gem 'rails', '~> 5.2.0'
 gem 'sass-rails', '~> 5.0'
+gem 'sqlite3', '1.3.13'
 gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -21,7 +22,6 @@ group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'chromedriver-helper'
   gem 'selenium-webdriver'
-  gem 'sqlite3', '1.3.13'
 end
 gem 'bootstrap-sass'
 gem 'carrierwave', '~> 1.0'
